@@ -1,1 +1,0 @@
-image_magick\convert.exe test.jpg test.pdf
