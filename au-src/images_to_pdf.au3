@@ -1,12 +1,11 @@
 $files = ""
 
-IF FileExists($CmdLine[0]) and StringInStr(FileGetAttrib($CmdLine[0]),"D") Then
-   Exit
-EndIf
-
 For $i = 1 To $CmdLine[0]
-
-   $files = $files & '"' & $CmdLine[$i] & '" '
+    IF FileExists($CmdLine[$i]) and StringInStr(FileGetAttrib($CmdLine[$i]),"D") Then
+        RunWait('dir_to_pdf.exe "' & $CmdLine[$i] & '"')
+    Else
+        $files = $files & '"' & $CmdLine[$i] & '" '
+    EndIf
 Next
 
 Func GetDir($sFilePath)
@@ -39,6 +38,8 @@ $delete_after_converting = IniRead ( "config.ini", "config", "delete_after_conve
 
 If $delete_after_converting = "1" Then
    For $i = 1 To $CmdLine[0]
-	  FileRecycle($CmdLine[$i])
+        IF FileExists($CmdLine[$i]) and StringInStr(FileGetAttrib($CmdLine[$i]),"D") = 0 Then
+            FileRecycle($CmdLine[$i])
+        EndIf
    Next
 EndIf

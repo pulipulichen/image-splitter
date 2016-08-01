@@ -28,7 +28,7 @@ For $i = 1 To $CmdLine[0]
 	  $files = ""
 
 	  For $j = 1 To $filesList[0]
-		 $files = $files & '"' & $CmdLine[$i] & '\' & $filesList[$j] & '" '
+            $files = $files & '"' & $CmdLine[$i] & '\' & $filesList[$j] & '" '
 	  Next
 
 
@@ -40,9 +40,15 @@ For $i = 1 To $CmdLine[0]
 
 	  RunWait('image_magick\convert.exe ' & $files & '"' & $dir_path & "\" &  $dir_name & '.pdf"', @ScriptDir, @SW_HIDE)
 
-	  If $delete_after_converting = "1" Then
-		 FileRecycle($CmdLine[$i])
-	  EndIf
+	  
+    Else
+        $dir_path = GetDir($CmdLine[$i])
+        $file_name = GetFileName($CmdLine[$i])
+        MsgBox($MB_SYSTEMMODAL, $dir_path, 'image_magick\convert.exe "' & $CmdLine[$i] & '" "' & $dir_path & "\" &  $file_name & '.pdf"')
+        RunWait('image_magick\convert.exe "' & $CmdLine[$i] & '" "' & $dir_path & "\" &  $file_name & '.pdf"', @ScriptDir, @SW_HIDE)
+    EndIf
 
-   EndIf
+    If $delete_after_converting = "1" Then
+        FileRecycle($CmdLine[$i])
+    EndIf
 Next
