@@ -1,8 +1,8 @@
 #include <Array.au3>
 #include <File.au3>
 
-$page_is_left_to_right = IniRead ( "config.ini", "config", "page_is_left_to_right", "1" )
-$delete_after_converting = IniRead ( "config.ini", "config", "delete_after_converting", "1" )
+$page_is_left_to_right = IniRead ( @ScriptDir & "\config.ini", "config", "page_is_left_to_right", "1" )
+$delete_after_converting = IniRead ( @ScriptDir & "\config.ini", "config", "delete_after_converting", "1" )
 
 For $i = 1 To $CmdLine[0]
     IF FileExists($CmdLine[$i]) and StringInStr(FileGetAttrib($CmdLine[$i]),"D") Then

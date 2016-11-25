@@ -19,7 +19,7 @@ Func GetDir($sFilePath)
 	Return $FileName
  EndFunc
 
-$delete_after_converting = IniRead ( "config.ini", "config", "delete_after_converting", "1" )
+$delete_after_converting = IniRead ( @ScriptDir & "\config.ini", "config", "delete_after_converting", "1" )
 
 For $i = 1 To $CmdLine[0]
    IF FileExists($CmdLine[$i]) and StringInStr(FileGetAttrib($CmdLine[$i]),"D") Then
@@ -51,7 +51,7 @@ For $i = 1 To $CmdLine[0]
 
         RunWait('image_magick\convert.exe ' & $files & '"' & $dir_path & "\" &  $dir_name & '.pdf"', @ScriptDir, @SW_HIDE)
 
-	  
+
     Else
         $dir_path = GetDir($CmdLine[$i])
         $file_name = GetFileName($CmdLine[$i])
